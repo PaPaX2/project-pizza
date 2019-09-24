@@ -59,8 +59,8 @@
       thisProduct.data = data; //nadanie wartości
 
       thisProduct.renderInMenu(); //wykonanie metody renderInMenu
+      thisProduct.initAccordion(); //wykonanie metody initAccordion - tworzenie akordeonu
 
-      console.log('thisProduct: ', thisProduct);
     }
     renderInMenu(){ //metoda tworząca/renderująca m.in nowy kod na stronie
       const thisProduct = this;
@@ -69,14 +69,39 @@
       const generatedHTML = templates.menuProduct(thisProduct.data);  //tworzenie kodu html przy użyciu Handlebars(templates) na podstawie argumentów z menuProducts(Select)
 
       //create element using utils.createDOMFromHTML
-      //funkcja createDOMfromHTML została stworzona przez Kodilla na potrzbę tego projektu i znajduje się w utils w pliku functions.js
-      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);  //funkcja createDOMfromHTML została stworzona przez Kodilla na potrzbę tego projektu i znajduje się w utils w pliku functions.js
 
       //find menu container
       const menuContainer = document.querySelector(select.containerOf.menu); //stała w której jest kontener menu
 
       //add element to menu
       menuContainer.appendChild(thisProduct.element); //funkcja appendChild dodaje wartość thisProduct.element na koniec rodzica, którym jest menuContainer
+    }
+
+    initAccordion(){  //metoda tworząca akordeon
+      const thisProduct = this;
+
+      /* find the clickable trigger (the element that should react to clicking) */
+
+    /* START: click event listener to trigger */
+
+      /* prevent default action for event */
+
+      /* toggle active class on element of thisProduct */
+
+      /* find all active products */
+
+      /* START LOOP: for each active product */
+
+        /* START: if the active product isn't the element of thisProduct */
+
+          /* remove class active for the active product */
+
+        /* END: if the active product isn't the element of thisProduct */
+
+      /* END LOOP: for each active product */
+
+    /* END: click event listener to trigger */
     }
   }
 
