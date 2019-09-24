@@ -66,13 +66,17 @@
       const thisProduct = this;
 
       //Generate HTML based on template
+      const generatedHTML = templates.menuProduct(thisProduct.data);  //tworzenie kodu html przy użyciu Handlebars(templates) na podstawie argumentów z menuProducts(Select)
 
-      //create element using utils.createElementFromHTML
+      //create element using utils.createDOMFromHTML
+      //funkcja createDOMfromHTML została stworzona przez Kodilla na potrzbę tego projektu i znajduje się w utils w pliku functions.js
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
 
       //find menu container
+      const menuContainer = document.querySelector(select.containerOf.menu); //stała w której jest kontener menu
 
       //add element to menu
-
+      menuContainer.appendChild(thisProduct.element); //funkcja appendChild dodaje wartość thisProduct.element na koniec rodzica, którym jest menuContainer
     }
   }
 
