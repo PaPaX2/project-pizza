@@ -53,7 +53,7 @@
   };
 
   class Product{
-    constructor(id, data){; //argumenty dla funkcji constructora
+    constructor(id, data) { //argumenty dla funkcji constructora
       const thisProduct = this;
       thisProduct.id = id; //nadanie wartości
       thisProduct.data = data; //nadanie wartości
@@ -76,39 +76,48 @@
 
       //add element to menu
       menuContainer.appendChild(thisProduct.element); //funkcja appendChild dodaje wartość thisProduct.element na koniec rodzica, którym jest menuContainer
+      //console.log('thisProduct.element: ', thisProduct.element);
     }
 
-    initAccordion(){  //metoda tworząca akordeon
+    initAccordion(){  //metoda tworząca akordeon, cała do wykonania samodzielnie
       const thisProduct = this;
 
       /* find the clickable trigger (the element that should react to clicking) */
+      const clickedTrigger = thisProduct.element.querySelector('.product__header i');
+      console.log('clickedTigger: ', clickedTrigger);
 
-    /* START: click event listener to trigger */
+      /* START: click event listener to trigger */
+      clickedTrigger.addEventListener('click', function(event) {
 
-      /* prevent default action for event */
+        /* prevent default action for event */
+        event.preventDefault();
 
-      /* toggle active class on element of thisProduct */
+        /* toggle active class on element of thisProduct */
+        thisProduct.element.classList.toggle('active');
 
-      /* find all active products */
-
-      /* START LOOP: for each active product */
+        /* find all active products */
+        const activeProducts = document.querySelectorAll('active');
+        /* START LOOP: for each active product */
+        for (let actProduct of activeProducts) {
 
         /* START: if the active product isn't the element of thisProduct */
-
-          /* remove class active for the active product */
-
+          if(actProduct !== thisProduct.element) {
+        /* remove class active for the active product */
+            actProduct.classList.remove('active'); {
         /* END: if the active product isn't the element of thisProduct */
-
-      /* END LOOP: for each active product */
-
-    /* END: click event listener to trigger */
+            }
+        /* END LOOP: for each active product */
+          }
+      /* END: click event listener to trigger */
+        }
+      });
     }
   }
 
   const app = {
     initMenu: function (){
       const thisApp = this;
-      console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
+      //console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
       for(let productData in thisApp.data.products){  //pętla iterująca po products w zewnętrznym pliku data
         new Product(productData, thisApp.data.products[productData]); //dodanie instancji dla każdego produktu wraz z argumentami
       }
@@ -123,11 +132,11 @@
 
     init: function(){
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
+      //console.log('*** App starting ***');
+      //console.log('thisApp:', thisApp);
+      //console.log('classNames:', classNames);
+      //console.log('settings:', settings);
+      //console.log('templates:', templates);
 
       thisApp.initData(); //wykonanie metody initData
       thisApp.initMenu(); //wykonanie metody initMenu
