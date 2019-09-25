@@ -83,7 +83,7 @@
       const thisProduct = this;
 
       /* find the clickable trigger (the element that should react to clicking) */
-      const clickedTrigger = thisProduct.element.querySelector('.product__header i');
+      const clickedTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       console.log('clickedTigger: ', clickedTrigger);
 
       /* START: click event listener to trigger */
@@ -96,20 +96,20 @@
         thisProduct.element.classList.toggle('active');
 
         /* find all active products */
-        const activeProducts = document.querySelectorAll('active');
+        const activeProducts = document.querySelectorAll('#product-list .product.active');
+        console.log('activeProducts: ', activeProducts);
         /* START LOOP: for each active product */
         for (let actProduct of activeProducts) {
 
         /* START: if the active product isn't the element of thisProduct */
-          if(actProduct !== thisProduct.element) {
+          if(actProduct != thisProduct.element) { //actProduct posiada różne wartości i typy danych niż thisProduct.element
         /* remove class active for the active product */
-            actProduct.classList.remove('active'); {
+            actProduct.classList.remove('active');
         /* END: if the active product isn't the element of thisProduct */
             }
         /* END LOOP: for each active product */
-          }
-      /* END: click event listener to trigger */
         }
+      /* END: click event listener to trigger */
       });
     }
   }
