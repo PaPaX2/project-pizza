@@ -59,8 +59,10 @@
       thisProduct.data = data; //nadanie wartości
 
       thisProduct.renderInMenu(); //wykonanie metody renderInMenu
-      thisProduct.initAccordion(); //wykonanie metody initAccordion - tworzenie akordeonu
-
+      thisProduct.getElements(); //wykonanie metody tworzącej skróty do obiektów i klas w html
+      thisProduct.initAccordion(); //wykonanie metody initAccordion - tworzenie akordeonu - samodzielnie duo podpowiedzi
+      thisProduct.initOrderForm(); //wykonanie metody initOrderForm
+      thisProduct.processOrder(); //wykonanie metody process.Order
     }
     renderInMenu(){ //metoda tworząca/renderująca m.in nowy kod na stronie
       const thisProduct = this;
@@ -79,15 +81,31 @@
       //console.log('thisProduct.element: ', thisProduct.element);
     }
 
+    getElements(){ //Skopiowany gotowiec, skróty do wywołań klas w html
+      const thisProduct = this;
+
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      //console.log('thisProduct.accordionTrigger: ', thisProduct.accordionTrigger);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      //console.log('thisProduct.form: ', thisProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      //console.log('thisProduct.formInputs: ', thisProduct.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      //console.log('thisProduct.cartButton: ', thisProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      //console.log('thisProduct.priceElem: ', thisProduct.priceElem);
+    }
+
     initAccordion(){  //metoda tworząca akordeon, cała do wykonania samodzielnie
       const thisProduct = this;
 
       /* find the clickable trigger (the element that should react to clicking) */
-      const clickedTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
-      console.log('clickedTigger: ', clickedTrigger);
+      //const clickedTrigger = thisProduct.accordionTrigger;
+      //console.log('clickedTigger: ', clickedTrigger);
+      //Wykomentowane z uwagi na to, że w kolejneym ćwiczeniu przygotowane zostały skróty do elmentów - getElements
 
       /* START: click event listener to trigger */
-      clickedTrigger.addEventListener('click', function(event) {
+      thisProduct.accordionTrigger.addEventListener('click', function(event) {
 
         /* prevent default action for event */
         event.preventDefault();
@@ -111,6 +129,33 @@
         }
       /* END: click event listener to trigger */
       });
+    }
+
+    initOrderForm() {
+      const thisProduct = this;
+      console.log('initOrderForm');
+
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+
+      for(let input of thisProduct.formInputs){
+        input.addEventListener('change', function(){
+          thisProduct.processOrder();
+        });
+      }
+
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    }
+
+    processOrder() {
+      const thisProduct = this;
+
+      console.log('processOrder');
     }
   }
 
