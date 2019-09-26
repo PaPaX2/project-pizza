@@ -10,7 +10,7 @@
         "init:gitignore": "curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore -o .gitignore",
         "init:gitignore:custom": "echo \"dist\" >> .gitignore",
         "test": "npm-run-all test:*",
-        "test:html": "globstar nu-html-checker dist/*.html",
+        "_test:html": "globstar nu-html-checker dist/*.html",
         "test:js": "eslint src/js/",
         "test:scss": "stylelint src/sass/",
         "build": "npm-run-all build:* test",
