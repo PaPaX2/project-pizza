@@ -33,7 +33,7 @@
     },
   };
 
-  /*
+
   const classNames = {
     menuProduct: {
       wrapperActive: 'active',
@@ -48,7 +48,7 @@
       defaultMax: 9,
     }
   };
-*/
+
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
@@ -57,9 +57,9 @@
     constructor(id, data) { //argumenty dla funkcji constructora
       const thisProduct = this;
       thisProduct.id = id; //nadanie wartości
-      console.log('thisProduct.id: ', thisProduct.id);
+      //console.log('thisProduct.id: ', thisProduct.id);
       thisProduct.data = data; //nadanie wartości
-      console.log('thisProduct.data: ', thisProduct.data);
+      //console.log('thisProduct.data: ', thisProduct.data);
       thisProduct.renderInMenu(); //wykonanie metody renderInMenu
       thisProduct.getElements(); //wykonanie metody tworzącej skróty do obiektów i klas w html
       thisProduct.initAccordion(); //wykonanie metody initAccordion - tworzenie akordeonu - samodzielnie duo podpowiedzi
@@ -96,6 +96,8 @@
       //console.log('thisProduct.cartButton: ', thisProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       //console.log('thisProduct.priceElem: ', thisProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      //console.log('thisProduct.imageWrapper: ', thisProduct.imageWrapper);
     }
 
     initAccordion(){  //metoda tworząca akordeon, cała do wykonania samodzielnie
@@ -117,7 +119,7 @@
 
         /* find all active products */
         const activeProducts = document.querySelectorAll('#product-list .product.active');
-        console.log('activeProducts: ', activeProducts);
+        //console.log('activeProducts: ', activeProducts);
         /* START LOOP: for each active product */
         for (let actProduct of activeProducts) {
 
@@ -135,7 +137,7 @@
 
     initOrderForm() {
       const thisProduct = this;
-      console.log('initOrderForm');
+      //console.log('initOrderForm');
 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
@@ -159,7 +161,7 @@
 
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData: ', formData);
+      //console.log('formData: ', formData);
       /* set variable price to equal thisProduct.data.price */
 
       let price = thisProduct.data.price; //cena całego produktu
@@ -177,21 +179,44 @@
 
           /* save the element in param.options with key optionId as const option */
           const option = param.options[optionId];
-          console.log('option: ', option);
+          //console.log('option: ', option);
 
           /* START IF: if option is selected and option is not default */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
           console.log('optionSelected: ', optionSelected);
-          if(optionSelected && !option.default){
+          if (optionSelected && !option.default){
             /* add price of option to variable price */
             price = price + option.price;
-            console.log('price: ', price);
+            //console.log('price: ', price);
             /* END IF: if option is selected and option is not default */
           }
           /* START ELSE IF: if option is not selected and option is default */
           else if (!optionSelected && option.default){
             /* deduct price of option from price */
             price = price - option.price;
+            console.log('optionId: ', optionId);
+            console.log('paramId: ', paramId);
+            // create const with chosen products images that have paramId and option Id
+            const activeImages = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+            console.log('activeImages: ', activeImages);
+
+            //START IF prodct is selected
+            if (optionSelected) {
+              //START LOOP for each image of activeImages
+              for (let image in activeImages) {
+                console.log('image: ', image);
+                //ADD class 'active' for image
+                image.classList.add('active');
+              }
+            }
+            //IF product is not selected
+            else {
+              for (let image in activeImages) {
+                //REMOVE class 'active'
+                image.classList.remove('active');
+              }
+            }
+
           /* END ELSE IF: if option is not selected and option is default */
           }
         /* END LOOP: for each optionId in param.options */
