@@ -64,7 +64,10 @@
       thisProduct.getElements(); //wykonanie metody tworzącej skróty do obiektów i klas w html
       thisProduct.initAccordion(); //wykonanie metody initAccordion - tworzenie akordeonu - samodzielnie duo podpowiedzi
       thisProduct.initOrderForm(); //wykonanie metody initOrderForm
-      thisProduct.processOrder(); //wykonanie metody process.Order
+      thisProduct.amountWidget(); //wykonanie metody amountWidget
+      thisProduct.processOrder(); //wykonanie metody processOrder
+
+
     }
     renderInMenu(){ //metoda tworząca/renderująca m.in nowy kod na stronie
       const thisProduct = this;
@@ -98,6 +101,8 @@
       //console.log('thisProduct.priceElem: ', thisProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       //console.log('thisProduct.imageWrapper: ', thisProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+
     }
 
     initAccordion(){  //metoda tworząca akordeon, cała do wykonania samodzielnie
@@ -183,7 +188,7 @@
 
           /* START IF: if option is selected and option is not default */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
-          console.log('optionSelected: ', optionSelected);
+          //console.log('optionSelected: ', optionSelected);
           if (optionSelected && !option.default){
             /* add price of option to variable price */
             price = price + option.price;
@@ -194,15 +199,15 @@
           else if (!optionSelected && option.default){
             /* deduct price of option from price */
             price = price - option.price;
-            console.log('optionId: ', optionId);
-            console.log('paramId: ', paramId);
+            //console.log('optionId: ', optionId);
+            //console.log('paramId: ', paramId);
           /* END LOOP: for each optionId in param.options */
           }
 
           // create const with chosen products images that have paramId and option Id
 
           const activeImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-          console.log('activeImages: ', activeImage);
+          //console.log('activeImages: ', activeImage);
 
           //const existImg = formData[paramId].indexOf(optionId);
           //console.log('optionSelectedImg', existImg);
@@ -235,11 +240,62 @@
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       thisProduct.priceElem.innerHTML = price;
     }
+    amountWidget() {
+      const thisProduct = this;
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+    }
   }
+  class AmountWidget {
+    constructor(element){
+      const thisWidget = this;
+
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.initActions();
+
+      console.log('AmountWidget: ', thisWidget);
+      console.log('element: ', element);
+    }
+
+    getElements(element) {
+      const thisWidget = this;
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+
+    setValue(value) {
+      const thisWidget = this;
+      const newValue = parseInt(value);
+
+      //TO DO add validation
+
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+      console.log('thisValue: ', value);
+    }
+
+    initActions () {
+      const thisWidget = this;
+
+      thisWidget.input.addEventListener('change', thisWidget.setValue(thisWidget.input.value));
+      thisWidget.linkDecrease.addEventListener('click', function(event){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', function(event){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value + 1);
+      });
+    }
+  }
+
+
   const app = {
     initMenu: function (){
       const thisApp = this;
-      //console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
+      console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
       for(let productData in thisApp.data.products){  //pętla iterująca po products w zewnętrznym pliku data
         new Product(productData, thisApp.data.products[productData]); //dodanie instancji dla każdego produktu wraz z argumentami
       }
