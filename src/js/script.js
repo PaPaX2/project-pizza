@@ -196,31 +196,32 @@
             price = price - option.price;
             console.log('optionId: ', optionId);
             console.log('paramId: ', paramId);
-            // create const with chosen products images that have paramId and option Id
-            const activeImages = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-            console.log('activeImages: ', activeImages);
+          /* END LOOP: for each optionId in param.options */
+          }
 
-            //START IF prodct is selected
-            if (optionSelected) {
-              //START LOOP for each image of activeImages
-              for (let image in activeImages) {
-                console.log('image: ', image);
-                //ADD class 'active' for image
-                image.classList.add('active');
-              }
+          // create const with chosen products images that have paramId and option Id
+
+          const activeImages = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          console.log('activeImages: ', activeImages);
+
+
+          //START If prodct is selected
+          if (optionSelected) {
+            //ADD class 'active' for image
+            activeImages.classList.remove('active');
+          }
+
+          //IF product is not selected
+          else {
+            for (let image in activeImages) {
+              //REMOVE class 'active'
+              image.classList.remove('active');
             }
-            //IF product is not selected
-            else {
-              for (let image in activeImages) {
-                //REMOVE class 'active'
-                image.classList.remove('active');
-              }
-            }
+          }
 
           /* END ELSE IF: if option is not selected and option is default */
-          }
-        /* END LOOP: for each optionId in param.options */
         }
+
         /* END LOOP: for each paramId in thisProduct.data.params */
       }
       /* set the contents of thisProduct.priceElem to be the value of variable price */
