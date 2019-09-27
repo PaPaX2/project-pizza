@@ -201,22 +201,30 @@
 
           // create const with chosen products images that have paramId and option Id
 
-          const activeImages = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-          console.log('activeImages: ', activeImages);
+          const activeImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          console.log('activeImages: ', activeImage);
 
+          //const existImg = formData[paramId].indexOf(optionId);
+          //console.log('optionSelectedImg', existImg);
 
-          //START If prodct is selected
-          if (optionSelected) {
+          //START If prodct is selected and have image
+          if (optionSelected && activeImage) {
+
             //ADD class 'active' for image
-            activeImages.classList.remove('active');
+            activeImage.classList.add(classNames.menuProduct.imageVisible);
           }
-
-          //IF product is not selected
+          //ELSE when product is not selected
           else {
-            for (let image in activeImages) {
+
+            // but product have image
+            if (activeImage) {
+
               //REMOVE class 'active'
-              image.classList.remove('active');
+              activeImage.classList.remove(classNames.menuProduct.imageVisible);
+
+              //END if product have image
             }
+            //END else when product is not selected
           }
 
           /* END ELSE IF: if option is not selected and option is default */
