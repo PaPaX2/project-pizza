@@ -119,6 +119,7 @@
       //console.log('thisProduct.element: ', thisProduct.element);
     }
 
+
     getElements(){ //Skopiowany gotowiec, skróty do wywołań klas w html
       const thisProduct = this;
 
@@ -339,7 +340,7 @@
       const newValue = parseInt(value);
       //console.log('newValue: ', newValue);
       //TO DO add validation
-      if (newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <=settings.amountWidget.defaultMax){
+      if (newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){
         thisWidget.value = newValue;
         thisWidget.announce();
       }
@@ -388,6 +389,8 @@
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
       console.log('thisCart.dom.toggleTrigger: ', thisCart.dom.toggleTrigger);
+      //thisCart.dom.productList = element.querySelector(select.cart.productList);
+
     }
     initActions() {
       const thisCart = this;
@@ -403,6 +406,19 @@
 
     add(menuProduct) {
       // const thisCard = this;
+      const thisCart = this;
+
+      //Generate HTML based on template
+      const generatedHTML = templates.cartProduct(thisCart.params);
+
+      //changing generatedHTML into DOM elements
+      const generatedDom = utils.createDOMFromHTML(generatedHTML);
+      console.log('generatedDom: ', generatedDom);
+      console.log('thisCart.dom.productList: ', thisCart.dom.productList);
+
+      //ADD generatedDOM products to MenuCart
+      //thisCart.dom.productList.appendChild(generatedDom);
+      //console.log('thisCart.dom.productList: ', thisCart.dom.productList);
 
       console.log('menuProduct: ', menuProduct);
     }
