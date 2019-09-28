@@ -276,7 +276,7 @@
 
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       thisProduct.priceElem.innerHTML = price;
-      console.log('price: ', price);
+      //console.log('price: ', price);
     }
 
     initAmountWidget() {
@@ -286,7 +286,7 @@
         thisProduct.processOrder();
       });
 
-      console.log('test', thisProduct.amountWidgetElem);
+      //console.log('test', thisProduct.amountWidgetElem);
     }
   }
   class AmountWidget {
@@ -298,8 +298,8 @@
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initActions();
 
-      console.log('AmountWidget: ', thisWidget);
-      console.log('element: ', element);
+      //console.log('AmountWidget: ', thisWidget);
+      //console.log('element: ', element);
     }
 
     getElements(element) {
@@ -313,7 +313,7 @@
     setValue(value) {
       const thisWidget = this;
       const newValue = parseInt(value);
-      console.log('newValue: ', newValue);
+      //console.log('newValue: ', newValue);
       //TO DO add validation
       if (newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <=settings.amountWidget.defaultMax){
         thisWidget.value = newValue;
@@ -321,7 +321,7 @@
       }
 
       thisWidget.input.value = thisWidget.value;
-      console.log('thisValue: ', value);
+      //console.log('thisValue: ', value);
 
     }
 
@@ -348,11 +348,40 @@
     }
   }
 
+  class Cart {
+    constructor(element) {
+      const thisCart = this;
+
+      thisCart.products = [];
+
+      thisCart.getElements(element);
+      thisCart.initActions();
+      console.log('New Cart: ', thisCart);
+    }
+    getElements(element) {
+      const thisCart = this;
+      thisCart.dom = {};
+      thisCart.dom.wrapper = element;
+      thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
+      console.log('thisCart.dom.toggleTrigger: ', thisCart.dom.toggleTrigger);
+    }
+    initActions() {
+      const thisCart = this;
+
+      //ADD trigger to cart after 'click'
+      thisCart.dom.toggleTrigger.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log('Element was clicked', event);
+
+        thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+    }
+  }
 
   const app = {
     initMenu: function (){
       const thisApp = this;
-      console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
+      //console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
       for(let productData in thisApp.data.products){  //pętla iterująca po products w zewnętrznym pliku data
         new Product(productData, thisApp.data.products[productData]); //dodanie instancji dla każdego produktu wraz z argumentami
       }
@@ -375,7 +404,16 @@
 
       thisApp.initData(); //wykonanie metody initData
       thisApp.initMenu(); //wykonanie metody initMenu
+      thisApp.initCart();
     },
+
+    initCart: function () {
+      const thisApp = this;
+
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
+    },
+
   };
 
   app.init();
