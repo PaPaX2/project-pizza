@@ -191,6 +191,7 @@
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     }
 
@@ -200,6 +201,10 @@
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
       //console.log('formData: ', formData);
+
+      //ADD new Add empty object
+      thisProduct.params = {};
+
       /* set variable price to equal thisProduct.data.price */
 
       let price = thisProduct.data.price; //cena całego produktu
@@ -248,6 +253,15 @@
           //START If prodct is selected and have image
           if (optionSelected && activeImage) {
 
+            // NOWY wklejony KOD który może walić problemy
+            if(!thisProduct.params[paramId]){
+              thisProduct.params[paramId] = {
+                label: param.label,
+                options: {},
+              };
+            }
+            thisProduct.params[paramId].options[optionId] = option.label;
+
             //ADD class 'active' for image
             activeImage.classList.add(classNames.menuProduct.imageVisible);
           }
@@ -272,11 +286,13 @@
       }
 
       // multiply price by amount
-      price *= thisProduct.amountWidget.value;
+      thisProduct.priceSingle = price;
+      thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
 
       /* set the contents of thisProduct.priceElem to be the value of variable price */
-      thisProduct.priceElem.innerHTML = price;
+      thisProduct.priceElem.innerHTML = thisProduct.price;
       //console.log('price: ', price);
+      console.log('thisProductParams: ', thisProduct.params);
     }
 
     initAmountWidget() {
@@ -287,6 +303,14 @@
       });
 
       //console.log('test', thisProduct.amountWidgetElem);
+    }
+
+    addToCart() {
+      const thisProduct = this;
+
+      thisProduct.data.name = thisProduct.name;
+      thisProduct.amountWidget.value = thisProduct.amount;
+      app.cart.add(thisProduct);
     }
   }
   class AmountWidget {
@@ -375,6 +399,12 @@
 
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
+    }
+
+    add(menuProduct) {
+      // const thisCard = this;
+
+      console.log('menuProduct: ', menuProduct);
     }
   }
 
