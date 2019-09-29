@@ -107,7 +107,7 @@
 
       //Generate HTML based on template
       const generatedHTML = templates.menuProduct(thisProduct.data);  //tworzenie kodu html przy użyciu Handlebars(templates) na podstawie argumentów z menuProducts(Select)
-
+      //console.log('generatedHTML for renderInMenu', generatedHTML);
       //create element using utils.createDOMFromHTML
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);  //funkcja createDOMfromHTML została stworzona przez Kodilla na potrzbę tego projektu i znajduje się w utils w pliku functions.js
 
@@ -116,7 +116,7 @@
 
       //add element to menu
       menuContainer.appendChild(thisProduct.element); //funkcja appendChild dodaje wartość thisProduct.element na koniec rodzica, którym jest menuContainer
-      console.log('thisProduct.element: ', thisProduct.element);
+      //console.log('thisProduct.element: ', thisProduct.element);
     }
 
 
@@ -293,7 +293,7 @@
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       thisProduct.priceElem.innerHTML = thisProduct.price;
       //console.log('price: ', price);
-      console.log('thisProductParams: ', thisProduct.params);
+      //console.log('thisProductParams: ', thisProduct.params);
     }
 
     initAmountWidget() {
@@ -389,7 +389,7 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
-      console.log('thisCart.dom.toggleTrigger: ', thisCart.dom.toggleTrigger);
+      //console.log('thisCart.dom.toggleTrigger: ', thisCart.dom.toggleTrigger);
       thisCart.dom.productList = element.querySelector(select.cart.productList);
 
     }
@@ -407,22 +407,23 @@
 
     //Dodawanie zamówienia do menu koszyka
     add(menuProduct) {
-      // const thisCard = this;
-      const thisCart = this;
 
+      const thisCart = this;
+      console.log('menuProduct: ', menuProduct);
       //Generate HTML based on template
-      const generatedHTML = templates.cartProduct(thisCart.menuProduct);
-      console.log('generatedHTML: ', generatedHTML);
+      const generatedHTML = templates.cartProduct(menuProduct); //coś tu nie działa porównaj z linijką 109
+      console.log('wartości do koszyka', generatedHTML);
+
       //changing generatedHTML into DOM elements
       const generatedDom = utils.createDOMFromHTML(generatedHTML);
-      console.log('generatedDom: ', generatedDom);
-      console.log('thisCart.dom.productList: ', thisCart.dom.productList);
+      //console.log('generatedDom: ', generatedDom);
+      //console.log('thisCart.dom.productList: ', thisCart.dom.productList);
 
       //ADD generatedDOM products to MenuCart
       thisCart.dom.productList.appendChild(generatedDom); //OK, ładuje w dobre miejsce
       //console.log('thisCart.dom.productList: ', thisCart.dom.productList);
 
-      console.log('menuProduct: ', menuProduct);
+
     }
   }
 
