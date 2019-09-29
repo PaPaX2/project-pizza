@@ -116,7 +116,7 @@
 
       //add element to menu
       menuContainer.appendChild(thisProduct.element); //funkcja appendChild dodaje wartość thisProduct.element na koniec rodzica, którym jest menuContainer
-      //console.log('thisProduct.element: ', thisProduct.element);
+      console.log('thisProduct.element: ', thisProduct.element);
     }
 
 
@@ -312,6 +312,7 @@
       thisProduct.data.name = thisProduct.name;
       thisProduct.amountWidget.value = thisProduct.amount;
       app.cart.add(thisProduct);
+      console.log('thisProduct', thisProduct);
     }
   }
   class AmountWidget {
@@ -389,7 +390,7 @@
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
       console.log('thisCart.dom.toggleTrigger: ', thisCart.dom.toggleTrigger);
-      //thisCart.dom.productList = element.querySelector(select.cart.productList);
+      thisCart.dom.productList = element.querySelector(select.cart.productList);
 
     }
     initActions() {
@@ -404,20 +405,21 @@
       });
     }
 
+    //Dodawanie zamówienia do menu koszyka
     add(menuProduct) {
       // const thisCard = this;
       const thisCart = this;
 
       //Generate HTML based on template
-      const generatedHTML = templates.cartProduct(thisCart.params);
-
+      const generatedHTML = templates.cartProduct(thisCart.menuProduct);
+      console.log('generatedHTML: ', generatedHTML);
       //changing generatedHTML into DOM elements
       const generatedDom = utils.createDOMFromHTML(generatedHTML);
       console.log('generatedDom: ', generatedDom);
       console.log('thisCart.dom.productList: ', thisCart.dom.productList);
 
       //ADD generatedDOM products to MenuCart
-      //thisCart.dom.productList.appendChild(generatedDom);
+      thisCart.dom.productList.appendChild(generatedDom); //OK, ładuje w dobre miejsce
       //console.log('thisCart.dom.productList: ', thisCart.dom.productList);
 
       console.log('menuProduct: ', menuProduct);
