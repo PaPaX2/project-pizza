@@ -312,7 +312,7 @@
       thisProduct.name = thisProduct.data.name;
       thisProduct.amount = thisProduct.amountWidget.value;
       app.cart.add(thisProduct);
-      console.log('thisProduct', thisProduct.data.name);
+      //console.log('thisProduct', thisProduct.data.name);
     }
   }
   class AmountWidget {
@@ -382,7 +382,7 @@
 
       thisCart.getElements(element);
       thisCart.initActions();
-      console.log('New Cart: ', thisCart);
+      //console.log('New Cart: ', thisCart);
     }
     getElements(element) {
       const thisCart = this;
@@ -409,10 +409,10 @@
     add(menuProduct) {
 
       const thisCart = this;
-      console.log('menuProduct: ', menuProduct);
+      //console.log('menuProduct: ', menuProduct);
       //Generate HTML based on template
       const generatedHTML = templates.cartProduct(menuProduct); //coś tu nie działa porównaj z linijką 109
-      console.log('wartości do koszyka', generatedHTML);
+      //console.log('wartości do koszyka', generatedHTML);
 
       //changing generatedHTML into DOM elements
       const generatedDom = utils.createDOMFromHTML(generatedHTML);
@@ -423,10 +423,38 @@
       thisCart.dom.productList.appendChild(generatedDom); //OK, ładuje w dobre miejsce
       //console.log('thisCart.dom.productList: ', thisCart.dom.productList);
 
+      thisCart.products.push(new CartProduct(menuProduct, generatedDom));
+      //console.log('thisCart.products', thisCart.products);
 
     }
   }
 
+  class CartProduct {
+    constructor(menuProduct, element) {
+      const thisCartProduct = this;
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.amount = menuProduct.amount;
+
+      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
+
+      thisCartProduct.getElements(element);
+      console.log('new CartProduct: ', thisCartProduct);
+    }
+
+    getElements(element) {
+      const thisCartProduct = this;
+      thisCartProduct.dom = {};
+      thisCartProduct.dom.wrapper = element;
+      thisCartProduct.dom.amountWidget = element.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = element.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = element.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = element.querySelector(select.cartProduct.remove);
+
+    }
+  }
   const app = {
     initMenu: function (){
       const thisApp = this;
