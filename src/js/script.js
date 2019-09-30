@@ -309,10 +309,10 @@
     addToCart() {
       const thisProduct = this;
 
-      thisProduct.data.name = thisProduct.name;
-      thisProduct.amountWidget.value = thisProduct.amount;
+      thisProduct.name = thisProduct.data.name;
+      thisProduct.amount = thisProduct.amountWidget.value;
       app.cart.add(thisProduct);
-      console.log('thisProduct', thisProduct);
+      console.log('thisProduct', thisProduct.data.name);
     }
   }
   class AmountWidget {
