@@ -420,8 +420,11 @@
         thisCart.update();
       });
 
-
+      thisCart.dom.productList.addEventListener('remove', function() {
+        thisCart.remove(event.detail.cartProduct);
+      });
     }
+
 
     //Dodawanie zamówienia do menu koszyka
     add(menuProduct) {
@@ -446,6 +449,28 @@
 
       thisCart.update();
     }
+
+    //Remove products from Cart - Odejmowanie usuniętych produktów z koszyka
+
+    remove(cartProduct) {
+      const thisCart = this;
+      //Declare const index where its value will be index of cartProduct in array thisCart.products
+      const index = thisCart.products.indexOf(cartProduct);
+      console.log('thisCart.products', thisCart.products);
+      console.log('index: ', index);
+      //execute splice method to remove index from thisCart.product
+      thisCart.products.splice(index, 1);
+
+      console.log('cartProduct.dom.wrapper: ', cartProduct.dom.wrapper);
+      //remove dom element
+      cartProduct.dom.wrapper.remove();
+
+      //execute method 'update'
+      thisCart.update();
+    }
+
+
+
 
     update() {
       const thisCart = this;
