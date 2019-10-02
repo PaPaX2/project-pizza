@@ -77,6 +77,12 @@
       defaultDeliveryFee: 20,
     },
     // CODE ADDED END
+
+    db: {
+      url: '//localhost:3131',
+      product: 'product',
+      order: 'order',
+    },
   };
 
   const templates = {
@@ -404,7 +410,13 @@
         thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
       }
 
+      thisCart.dom.form = element.querySelector(select.cart.form);
+
+      thisCart.dom.phone = element.querySelector(select.cart.phone);
+
+      thisCart.dom.address = element.querySelector(select.cart.address);
     }
+
     initActions() {
       const thisCart = this;
 
@@ -423,8 +435,48 @@
       thisCart.dom.productList.addEventListener('remove', function() {
         thisCart.remove(event.detail.cartProduct);
       });
+
+      thisCart.dom.form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        thisCart.sendOrder();
+      });
     }
 
+    sendOrder() {
+      const thisCart = this;
+
+      const url = settings.db.url + '/' + settings.db.order;
+
+      const payload = {
+        phone: thisCart.dom.phone.value, //dlaczego value?
+        address: thisCart.dom.address.value, //dlaczego value?
+        totalNumber: thisCart.totalNumber,
+        subtotalPrice: thisCart.subtotalPrice,
+        totalPrice: thisCart.totalprice,
+        deliveryFee: thisCart.deliveryFee,
+        products: [], //dlaczego, czy to jest ten sam products co w pęli?
+      };
+
+      for (let product of thisCart.products) {
+        payload.products.push(product.getData()); //dlaczego co oznacza push
+      }
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      };
+
+      fetch(url, options)
+        .then(function(responce){
+          return responce.json();
+        })
+        .then(function(parsedResponce){
+          console.log('parsedResponce', parsedResponce);
+        });
+    }
 
     //Dodawanie zamówienia do menu koszyka
     add(menuProduct) {
@@ -458,18 +510,18 @@
       const index = thisCart.products.indexOf(cartProduct);
       console.log('thisCart.products', thisCart.products);
       console.log('index: ', index);
+
       //execute splice method to remove index from thisCart.product
       thisCart.products.splice(index, 1);
 
       console.log('cartProduct.dom.wrapper: ', cartProduct.dom.wrapper);
+
       //remove dom element
       cartProduct.dom.wrapper.remove();
 
       //execute method 'update'
       thisCart.update();
     }
-
-
 
 
     update() {
@@ -479,7 +531,7 @@
       thisCart.subtotalPrice = 0;
 
 
-      for (let product of thisCart.products){ //dlaczego to działa?
+      for (let product of thisCart.products){ //dlaczego to działa -let product?
 
         thisCart.totalNumber += product.amount;
         console.log ('Amount of products: ', product.amount);
@@ -569,21 +621,50 @@
       });
 
     }
+
+    getData() {
+      const thisCartProduct = this;
+
+      return {
+        id: thisCartProduct.id,
+        amount: thisCartProduct.amount,
+        price: thisCartProduct.price,
+        priceSingle: thisCartProduct.priceSingle,
+        params: thisCartProduct.params,
+      };
+
+    }
   }
+
   const app = {
     initMenu: function (){
       const thisApp = this;
       //console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
       for(let productData in thisApp.data.products){  //pętla iterująca po products w zewnętrznym pliku data
-        new Product(productData, thisApp.data.products[productData]); //dodanie instancji dla każdego produktu wraz z argumentami
+        new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]); //dodanie instancji dla każdego produktu wraz z argumentami
       }
-
     },
 
     initData: function(){   // initData - metoda do pobierania danych z innych źródeł
       const thisApp = this;
 
-      thisApp.data = dataSource; // dataSource - stała zadeklarowana w pliku src/js/data.js w której są produkty na pizze
+      thisApp.data = {}; // (dataSource) zamienione na {} - stała zadeklarowana w pliku src/js/data.js w której są produkty na pizze
+      const url = settings.db.url + '/' + settings.db.product;
+
+      fetch(url)
+        .then(function(rawResponce){
+          return rawResponce.json();
+        })
+        .then(function(parsedResponce){
+          console.log('parsedResponce', parsedResponce);
+
+          //save parsedResponce as this.App.data.products
+          thisApp.data.products = parsedResponce;
+
+          //execute initMenu method
+          thisApp.initMenu();
+        });
+      console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
 
     init: function(){
@@ -595,7 +676,7 @@
       //console.log('templates:', templates);
 
       thisApp.initData(); //wykonanie metody initData
-      thisApp.initMenu(); //wykonanie metody initMenu
+      //thisApp.initMenu(); //wykonanie metody initMenu, z uwagi na kożystanie z Ajax powinno być skasowane
       thisApp.initCart();
     },
 
