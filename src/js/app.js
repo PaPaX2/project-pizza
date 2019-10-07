@@ -1,9 +1,63 @@
-import {settings, select} from './settings.js';
+import {settings, select, classNames} from './settings.js';
 import Product from './components/product.js';
 import Cart from './components/cart.js';
 
 const app = {
-  initMenu: function (){
+
+  initPages: function() {
+    const thisApp = this;
+
+    thisApp.pages = document.querySelector(select.containerOf.pages).children;
+    thisApp.navLinks = document.querySelectorAll(select.nav.links);
+
+    const idFromHash = window.location.hash.replace('#/', '');
+
+    let pageMatchingHash = thisApp.pages[0].id;
+
+    for (let page of thisApp.pages){
+      if(page.id == idFromHash){
+        pageMatchingHash = page.id;
+        break;
+      }
+    }
+
+    thisApp.activatePage(pageMatchingHash);
+
+    for (let link of thisApp.navLinks){
+      link.addEventListener('click', function(event){
+        const clickedElement = this;
+        event.preventDefault();
+
+        //get page id from href attribute
+        const id = clickedElement.getAttribute('href').replace('#', '');
+
+        // run thisApp.actvate page wih id attribute
+        thisApp.activatePage(id);
+
+        // change URL hash
+        window.location.hash = '#/' + id;
+      });
+    }
+  },
+
+  activatePage(pageId){
+    const thisApp =this;
+
+    //Add class 'active' to matching pages, rmove from non matching
+    for (let page of thisApp.pages){
+      page.classList.toggle(classNames.pages.active, page.id == pageId);
+    }
+
+    //Add class 'active' to matching links, rmove from non matching
+    for (let link of thisApp.navLinks){
+      link.classList.toggle(
+        classNames.nav.active,
+        link.getAttribute('href') == '#' + pageId
+      );
+    }
+  },
+
+  initMenu: function () {
     const thisApp = this;
     //console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
     for(let productData in thisApp.data.products){  //pętla iterująca po products w zewnętrznym pliku data
@@ -40,6 +94,8 @@ const app = {
     //console.log('classNames:', classNames);
     //console.log('settings:', settings);
     //console.log('templates:', templates);
+
+    thisApp.initPages();
 
     thisApp.initData(); //wykonanie metody initData
     //thisApp.initMenu(); //wykonanie metody initMenu, z uwagi na kożystanie z Ajax powinno być skasowane
