@@ -1,6 +1,7 @@
 import {settings, select, classNames} from './settings.js';
 import Product from './components/product.js';
 import Cart from './components/cart.js';
+import {Booking} from './components/booking.js';
 
 const app = {
 
@@ -84,7 +85,7 @@ const app = {
         //execute initMenu method
         thisApp.initMenu();
       });
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
+    //console.log('thisApp.data', JSON.stringify(thisApp.data));
   },
 
   init: function(){
@@ -100,6 +101,8 @@ const app = {
     thisApp.initData(); //wykonanie metody initData
     //thisApp.initMenu(); //wykonanie metody initMenu, z uwagi na kożystanie z Ajax powinno być skasowane
     thisApp.initCart();
+
+    thisApp.initBooking();
   },
 
   initCart: function () {
@@ -115,6 +118,13 @@ const app = {
     });
   },
 
+  initBooking: function() {
+    const thisApp = this;
+
+    const widgetBooking = document.querySelector(select.containerOf.booking);
+    thisApp.booking = new Booking(widgetBooking);
+    console.log('widgetBooking', widgetBooking);
+  },
 };
 
 app.init();

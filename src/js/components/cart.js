@@ -8,7 +8,7 @@ class Cart {
 
     thisCart.products = [];
     thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
-    console.log('thisCart.deliveryFee', thisCart.deliveryFee);
+    //console.log('thisCart.deliveryFee', thisCart.deliveryFee);
 
     thisCart.getElements(element);
     thisCart.initActions();
@@ -127,13 +127,13 @@ class Cart {
     const thisCart = this;
     //Declare const index where its value will be index of cartProduct in array thisCart.products
     const index = thisCart.products.indexOf(cartProduct);
-    console.log('thisCart.products', thisCart.products);
-    console.log('index: ', index);
+    //console.log('thisCart.products', thisCart.products);
+    //console.log('index: ', index);
 
     //execute splice method to remove index from thisCart.product
     thisCart.products.splice(index, 1);
 
-    console.log('cartProduct.dom.wrapper: ', cartProduct.dom.wrapper);
+    //console.log('cartProduct.dom.wrapper: ', cartProduct.dom.wrapper);
 
     //remove dom element
     cartProduct.dom.wrapper.remove();
