@@ -77,7 +77,7 @@ const app = {
         return rawResponce.json();
       })
       .then(function(parsedResponce){
-        console.log('parsedResponce', parsedResponce);
+        //console.log('parsedResponce', parsedResponce);
 
         //save parsedResponce as this.App.data.products
         thisApp.data.products = parsedResponce;
@@ -123,7 +123,7 @@ const app = {
 
     const widgetBooking = document.querySelector(select.containerOf.booking);
     thisApp.booking = new Booking(widgetBooking);
-    console.log('widgetBooking', widgetBooking);
+    //console.log('widgetBooking', widgetBooking);
   },
 };
 
