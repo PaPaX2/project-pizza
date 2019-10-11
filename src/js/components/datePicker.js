@@ -26,7 +26,6 @@ export class DatePicker extends BaseWidget {
 
     //const flatpickr = require('flatpickr');
 
-
     flatpickr(thisWidget.dom.input,{
       defaultDate: thisWidget.minDate,
       minDate: thisWidget.minDate,
@@ -41,21 +40,24 @@ export class DatePicker extends BaseWidget {
       },
 
       onChange: function(selectedDated, dateStr) {
-        thisWidget.newValue = dateStr;
-        console.log('thisWidget.newValue', thisWidget.newValue);
-        thisWidget.value = thisWidget.newValue;
+        thisWidget.value = dateStr;
+        //console.log('thisWidget.newValue', thisWidget.newValue);
+        //thisWidget.value = thisWidget.newValue;
       }
     });
     console.log('thisWidget.value', thisWidget.value);
 
-
-
-    //do tego momentu działa, trzeba zrobić:
-    // 2.4 zainicjować plugin flatpicker
-    //3, 4, 5
-
   }
 
+  parseValue (value){
+    return value;
+  }
+
+  isValid(){
+    return true;
+  }
+
+  renderValue(){}
 }
 
 
