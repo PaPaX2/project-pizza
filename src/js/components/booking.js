@@ -2,6 +2,7 @@
 
 import {select, templates} from '../settings.js';
 import AmountWidget from './amountWidget.js';
+import {DatePicker} from './datePicker.js';
 
 export class Booking {
   constructor(widgetBooking){ //dlaczego wszędzie widgetBooking?
@@ -22,12 +23,15 @@ export class Booking {
 
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+
+    thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
   }
 
   initWidgets(){
     const thisBooking = this;
 
-    thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
+    thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount); //Dalczego, do czego te instancje?
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+    thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
   }
 }
