@@ -3,6 +3,7 @@
 import {select, templates} from '../settings.js';
 import AmountWidget from './amountWidget.js';
 import {DatePicker} from './datePicker.js';
+import {HourPicker} from './hourPicker.js';
 
 export class Booking {
   constructor(widgetBooking){ //dlaczego wszędzie widgetBooking?
@@ -25,6 +26,7 @@ export class Booking {
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
 
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
+    thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
   }
 
   initWidgets(){
@@ -33,5 +35,6 @@ export class Booking {
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount); //Dalczego, do czego te instancje?
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
+    thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
   }
 }
