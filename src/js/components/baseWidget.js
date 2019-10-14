@@ -29,6 +29,7 @@ class BaseWidget{
     const thisWidget = this;
 
     thisWidget.value = value;
+
   }
   parseValue(value){
     return parseInt(value);
