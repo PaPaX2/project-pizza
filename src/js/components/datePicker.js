@@ -9,8 +9,10 @@ export class DatePicker extends BaseWidget {
     const thisWidget = this;
 
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
+
+    //thisWidget.dom.input.value = thisWidget.value;
     thisWidget.initPlugin();
-    thisWidget.dom.input.value = thisWidget.value;
+    //console.log('dateValue1: ', thisWidget.value);
   }
 
 
@@ -18,6 +20,7 @@ export class DatePicker extends BaseWidget {
     const thisWidget = this;
 
     thisWidget.minDate = new Date(thisWidget.value);
+    //console.log('thisWidget.minDate', thisWidget.minDate);
 
     thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
 
@@ -25,6 +28,7 @@ export class DatePicker extends BaseWidget {
       defaultDate: thisWidget.minDate,
       minDate: thisWidget.minDate,
       maxDate: thisWidget.maxDate,
+
       'disable': [
         function(date){
           return (date.getDay() === 1);
@@ -35,9 +39,9 @@ export class DatePicker extends BaseWidget {
       },
       onChange: function(dateStr) {
         thisWidget.value = dateStr;
+        console.log('dateValue2: ', thisWidget.value);
       }
     });
-
   }
 
   parseValue (value){

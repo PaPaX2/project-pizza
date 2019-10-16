@@ -17,7 +17,7 @@ export class Booking {
     const thisBooking = this;
 
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
-    const endDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
+    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
 
     const params = {
       booking: [
@@ -69,8 +69,8 @@ export class Booking {
       .then(function([bookings, eventsCurrent, eventsRepeat]){
         //console.log(bookings);
         //console.log(eventsCurrent);
-        //console.log(eventsRepeat);
-        thisBooking.parseData(bookings, eventsCurrent,eventsRepeat);
+        //   console.log(eventsRepeat);
+        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
   }
 
@@ -80,6 +80,10 @@ export class Booking {
     thisBooking.booked = {};
 
     for (let item of bookings){
+      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
+    }
+
+    for (let item of eventsCurrent){
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
     }
 
@@ -93,9 +97,8 @@ export class Booking {
         }
       }
     }
-    console.log('thisBooking.booked', thisBooking.booked);
-
     thisBooking.updateDOM();
+    console.log('thisBooking.booked', thisBooking.booked);
   }
 
   makeBooked(date, hour, duration, table) {
@@ -119,8 +122,9 @@ export class Booking {
     const thisBooking = this;
 
     thisBooking.date = thisBooking.datePicker.value;
+    //console.log(thisBooking.date);
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-
+    //console.log(thisBooking.hour);
     let allAvaliable = false;
 
     if(
@@ -136,6 +140,7 @@ export class Booking {
       if (!isNaN(tableId)){
         tableId = parseInt(tableId);
       }
+
       if(
         !allAvaliable
         &&
@@ -176,6 +181,7 @@ export class Booking {
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
+      console.log('updated');
       thisBooking.updateDOM();
     });
   }
