@@ -12,6 +12,7 @@ export class Booking {
     thisBooking.render(widgetBooking);
     thisBooking.initWidgets();
     thisBooking.getData();
+    thisBooking.tableReservation();
   }
   getData(){
     const thisBooking = this;
@@ -152,6 +153,11 @@ export class Booking {
       }
     }
   }
+  tableReservation(){
+    //const thisBooking = this;
+  }
+
+
 
   render(widgetBooking){
     const thisBooking = this;
@@ -170,6 +176,7 @@ export class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    //thisBooking.dom.table = thisBooking.dom.wrapper.querySelector(select.booking.tables);
   }
 
   initWidgets(){

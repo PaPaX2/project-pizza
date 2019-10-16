@@ -45,6 +45,9 @@ export class DatePicker extends BaseWidget {
   }
 
   parseValue (value){
+
+    value = utils.dateToStr(new Date(value));
+    //console.log('value', value);
     return value;
   }
 
