@@ -154,7 +154,34 @@ export class Booking {
     }
   }
   tableReservation(){
-    //const thisBooking = this;
+    const thisBooking = this;
+
+
+
+    for (let table of thisBooking.dom.tables){
+      table.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        let currentData = thisBooking.datePicker.value;
+        let currentHour = thisBooking.hourPicker.value;
+        let hoursAmount = table.getAttribute(settings.widgets.amount.input);
+
+        console.log('currentData', currentData);
+        console.log('currentHour', currentHour);
+        console.log('hoursAmount', hoursAmount);
+
+        //if (thisBooking.booked.[thisBooking.date][thisBooking.hour] =
+        //)
+
+        //toggle class booked on selected table
+        table.classList.add(classNames.booking.tableBooked);
+
+        console.log('table', table);
+        console.log(this);
+      });
+
+    }
+    //console.log('table', table);
   }
 
 
@@ -188,7 +215,6 @@ export class Booking {
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
-      console.log('updated');
       thisBooking.updateDOM();
     });
   }
