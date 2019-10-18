@@ -67,17 +67,17 @@ class Cart {
     const url = settings.db.url + '/' + settings.db.order;
 
     const payload = {
-      phone: thisCart.dom.phone.value, //dlaczego value?
-      address: thisCart.dom.address.value, //dlaczego value?
+      phone: thisCart.dom.phone.value,
+      address: thisCart.dom.address.value,
       totalNumber: thisCart.totalNumber,
       subtotalPrice: thisCart.subtotalPrice,
       totalPrice: thisCart.totalprice,
       deliveryFee: thisCart.deliveryFee,
-      products: [], //dlaczego, czy to jest ten sam products co w pęli?
+      products: [], //pusta tablica dla produktów pobranych z metody getData poniżej
     };
 
     for (let product of thisCart.products) {
-      payload.products.push(product.getData()); //dlaczego co oznacza push
+      payload.products.push(product.getData()); //wepchnięcie do tablicy produktów z metody getData
     }
 
     const options = {

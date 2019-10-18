@@ -12,7 +12,7 @@ export class DatePicker extends BaseWidget {
 
     //thisWidget.dom.input.value = thisWidget.value;
     thisWidget.initPlugin();
-    //console.log('dateValue1: ', thisWidget.value);
+    console.log('dateValue1: ', thisWidget.value);
   }
 
 
@@ -37,7 +37,7 @@ export class DatePicker extends BaseWidget {
       'locale': {
         'firstDayOfWeek': 1
       },
-      onChange: function(dateStr) {
+      onChange: function(somethingNotImportantInThisCase, dateStr) {
         thisWidget.value = dateStr;
         console.log('dateValue2: ', thisWidget.value);
       }
@@ -45,9 +45,6 @@ export class DatePicker extends BaseWidget {
   }
 
   parseValue (value){
-
-    value = utils.dateToStr(new Date(value));
-    //console.log('value', value);
     return value;
   }
 

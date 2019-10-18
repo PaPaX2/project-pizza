@@ -49,7 +49,7 @@ export class Booking {
                                       + '?' + params.eventsRepeat.join('&'),
     };
 
-    //console.log(urls);
+    console.log(urls);
 
     Promise.all([
       fetch(urls.booking),
@@ -156,35 +156,75 @@ export class Booking {
   tableReservation(){
     const thisBooking = this;
 
+    const url = settings.db.url + '/' + settings.db.booking;
+    let reservation = {};
 
-
+    //Start loop for every table
     for (let table of thisBooking.dom.tables){
+
+      //Add eventListener for clicked table
       table.addEventListener('click', function(event) {
         event.preventDefault();
+        console.log(thisBooking.dom.tables);
 
-        let currentData = thisBooking.datePicker.value;
-        let currentHour = thisBooking.hourPicker.value;
-        let hoursAmount = table.getAttribute(settings.widgets.amount.input);
+        //check if table isn't booked
 
-        console.log('currentData', currentData);
-        console.log('currentHour', currentHour);
-        console.log('hoursAmount', hoursAmount);
-
-        //if (thisBooking.booked.[thisBooking.date][thisBooking.hour] =
-        //)
+        // if (tableFree() = true) {
 
         //toggle class booked on selected table
         table.classList.add(classNames.booking.tableBooked);
 
-        console.log('table', table);
-        console.log(this);
-      });
+        //read chosen table number and save to variable
+        let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+        console.log('tableId', tableId);
 
+        //Add variable for current time and data into object
+        let currentData = thisBooking.datePicker.value;
+        let currentHour = thisBooking.hourPicker.value;
+        console.log('currentData', currentData);
+        console.log('currentHour', currentHour);
+
+        //Prepare object for send to API
+        let reservation = {
+          id: '',
+          date: currentData,
+          hour: currentHour,
+          table: tableId,
+          repeat: 'false',
+          duration: '',
+          ppl: 3,
+          starters: [],
+        };
+        console.log('reservation', reservation);
+
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(reservation),
+        };
+
+        fetch(url, options)
+          .then(function(responce){
+            return responce.json();
+          })
+          .then(function(parsedResponce){
+            console.log('parsedResponce', parsedResponce);
+          });
+
+
+        //} //zakończenie parametru if czy stolik wolny
+
+      });
     }
-    //console.log('table', table);
+    console.log('table', reservation);
   }
 
+  tableFree() {
+    const thisBooking = this;
 
+  }
 
   render(widgetBooking){
     const thisBooking = this;
