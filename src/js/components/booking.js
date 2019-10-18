@@ -119,6 +119,74 @@ export class Booking {
     }
   }
 
+  tableReservation(){
+    const thisBooking = this;
+
+    //Start loop for every table
+    for (let table of thisBooking.dom.tables){
+
+      //Add eventListener for clicked table
+      table.addEventListener('click', function(event) {
+        event.preventDefault();
+        //console.log(thisBooking.dom.tables);
+
+        //add class booked on selected table
+        table.classList.toggle(classNames.booking.tableBooked);
+
+        //read chosen table number and save to variable
+        let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+        //console.log('tableId', tableId);
+
+        //Add variable for current time and data into object
+        let currentData = thisBooking.datePicker.value;
+        let currentHour = thisBooking.hourPicker.value;
+        //console.log('currentData', currentData);
+        //console.log('currentHour', currentHour);
+        //Prepare object for send to API
+        let reservation = {
+          id: '',
+          date: currentData,
+          hour: currentHour,
+          table: tableId,
+          repeat: 'false',
+          duration: '',
+          ppl: 3,
+          starters: [],
+        };
+
+        thisBooking.currentReservation = reservation;
+        //console.log('reservation', reservation);
+      });
+    }
+
+    const button = thisBooking.dom.wrapper.querySelector(select.booking.submitBTN);
+    console.log('button', button);
+
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      console.log('click', thisBooking.currentReservation);
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(thisBooking.currentReservation),
+      };
+
+      const url = settings.db.url + '/' + settings.db.booking;
+
+      fetch(url, options)
+        .then(function(responce){
+          return responce.json();
+        })
+        .then(function(parsedResponce){
+          console.log('parsedResponce', parsedResponce);
+        });
+    });
+    thisBooking.updateDOM();
+  }
+
   updateDOM(){
     const thisBooking = this;
 
@@ -154,72 +222,8 @@ export class Booking {
     }
   }
 
-  tableReservation(){
-    const thisBooking = this;
-
-    const url = settings.db.url + '/' + settings.db.booking;
-    let reservation = {};
-
-    //Start loop for every table
-    for (let table of thisBooking.dom.tables){
-
-      //Add eventListener for clicked table
-      table.addEventListener('click', function(event) {
-        event.preventDefault();
-        console.log(thisBooking.dom.tables);
-
-        //Add variable for current time and data into object
-        let currentData = thisBooking.datePicker.value;
-        let currentHour = thisBooking.hourPicker.value;
-        console.log('currentData', currentData);
-        console.log('currentHour', currentHour);
-
-        //check if table isn't booked
 
 
-        //toggle class booked on selected table
-        table.classList.add(classNames.booking.tableBooked);
-
-        //read chosen table number and save to variable
-        let tableId = table.getAttribute(settings.booking.tableIdAttribute);
-        console.log('tableId', tableId);
-
-        //Prepare object for send to API
-        let reservation = {
-          id: '',
-          date: currentData,
-          hour: currentHour,
-          table: tableId,
-          repeat: 'false',
-          duration: '',
-          ppl: 3,
-          starters: [],
-        };
-        console.log('reservation', reservation);
-
-        const options = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(reservation),
-        };
-
-        fetch(url, options)
-          .then(function(responce){
-            return responce.json();
-          })
-          .then(function(parsedResponce){
-            console.log('parsedResponce', parsedResponce);
-          });
-
-
-        //} //zakończenie parametru if czy stolik wolny
-        console.log('thisBooking.booked', thisBooking.booked);
-      });
-    }
-    console.log('table', reservation);
-  }
 
 
   render(widgetBooking){
