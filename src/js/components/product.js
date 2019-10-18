@@ -49,7 +49,7 @@ class Product{
     //console.log('thisProduct.cartButton: ', thisProduct.cartButton);
     thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
     //console.log('thisProduct.priceElem: ', thisProduct.priceElem);
-    thisProduct.image  = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+    thisProduct.imageWrapper  = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     //console.log('thisProduct.imageWrapper: ', thisProduct.imageWrapper);
     thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
 

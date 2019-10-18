@@ -153,6 +153,7 @@ export class Booking {
       }
     }
   }
+
   tableReservation(){
     const thisBooking = this;
 
@@ -167,9 +168,14 @@ export class Booking {
         event.preventDefault();
         console.log(thisBooking.dom.tables);
 
+        //Add variable for current time and data into object
+        let currentData = thisBooking.datePicker.value;
+        let currentHour = thisBooking.hourPicker.value;
+        console.log('currentData', currentData);
+        console.log('currentHour', currentHour);
+
         //check if table isn't booked
 
-        // if (tableFree() = true) {
 
         //toggle class booked on selected table
         table.classList.add(classNames.booking.tableBooked);
@@ -177,12 +183,6 @@ export class Booking {
         //read chosen table number and save to variable
         let tableId = table.getAttribute(settings.booking.tableIdAttribute);
         console.log('tableId', tableId);
-
-        //Add variable for current time and data into object
-        let currentData = thisBooking.datePicker.value;
-        let currentHour = thisBooking.hourPicker.value;
-        console.log('currentData', currentData);
-        console.log('currentHour', currentHour);
 
         //Prepare object for send to API
         let reservation = {
@@ -215,16 +215,12 @@ export class Booking {
 
 
         //} //zakończenie parametru if czy stolik wolny
-
+        console.log('thisBooking.booked', thisBooking.booked);
       });
     }
     console.log('table', reservation);
   }
 
-  tableFree() {
-    const thisBooking = this;
-
-  }
 
   render(widgetBooking){
     const thisBooking = this;
