@@ -206,9 +206,9 @@
   "event": [
     {
       "id": 1,
-      "date": "2019-10-17",
-      "hour": "12:30",
-      "table": 1,
+      "date": "2019-10-25",
+      "hour": "13:00",
+      "table": 2,
       "repeat": false,
       "duration": 4,
       "ppl": 3,
@@ -217,8 +217,8 @@
     {
       "id": 2,
       "date": "2019-10-17",
-      "hour": "16:00",
-      "table": 3,
+      "hour": "15:00",
+      "table": 2,
       "repeat": "daily",
       "duration": 2,
       "ppl": 3,
@@ -227,8 +227,8 @@
     {
       "id": 3,
       "date": "2019-10-17",
-      "hour": "12:00",
-      "table": 3,
+      "hour": "17:00",
+      "table": 2,
       "repeat": "daily",
       "duration": 2,
       "ppl": 3,
@@ -237,17 +237,17 @@
     {
       "id": 4,
       "date": "2019-10-17",
-      "hour": "13:00",
+      "hour": "19:00",
       "table": 2,
       "repeat": "daily",
-      "duration": 4,
+      "duration": 3,
       "ppl": 3,
       "starters": []
     },
     {
       "id": 5,
       "date": "2019-10-17",
-      "hour": "18:00",
+      "hour": "22:00",
       "table": 2,
       "repeat": "daily",
       "duration": 2,
@@ -258,7 +258,7 @@
   "booking": [
     {
     "id": 1,
-    "date": "2019-10-16",
+    "date": "2019-10-26",
     "hour": "12:30",
     "table": 1,
     "repeat": false,
