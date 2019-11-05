@@ -12,7 +12,8 @@ export const select = {
     pages: '#pages',
     booking: '.booking-wrapper',
     nav: '.main-nav',
-    landingpage: '.landingpage',
+    landingpage: 'home',
+    carousel: '.carousel-item',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -68,7 +69,7 @@ export const select = {
     submitBTN: '.booking-form .btn-secondary',
   },
   nav: {
-    links: '.main-nav a',
+    links: '.link a',
   },
 };
 
