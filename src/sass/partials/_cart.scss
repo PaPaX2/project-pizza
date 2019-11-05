@@ -11,6 +11,10 @@
   box-shadow: 0 0 $base-size rgba(0, 0, 0, 0.2);
   z-index: 9999;
 
+  &.disabled {
+    display: none;
+  }
+
   &.active {
     .cart__content {
       @include accordion-open();

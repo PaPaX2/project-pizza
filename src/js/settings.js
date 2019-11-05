@@ -11,6 +11,8 @@ export const select = {
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
+    nav: '.main-nav',
+    landingpage: '.landingpage',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -77,6 +79,7 @@ export const classNames = {
   },
   cart: {
     wrapperActive: 'active',
+    disabled: 'disabled',
   },
   booking: {
     loading: 'loading',
@@ -85,6 +88,7 @@ export const classNames = {
   },
   nav: {
     active: 'active',
+    disabled: 'disabled',
   },
   pages: {
     active: 'active',

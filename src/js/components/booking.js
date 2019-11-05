@@ -121,7 +121,7 @@ export class Booking {
 
   tableChoice(){
     const thisBooking = this;
-    thisBooking.arrayTableId = [];
+    thisBooking.selectedTable = null;
 
     //Start loop for every table
     for (let table of thisBooking.dom.tables){
@@ -131,34 +131,22 @@ export class Booking {
         event.preventDefault();
 
         // check if table is not temporary booked
-        if(table.classList.contains(classNames.booking.newlyBooked)){
+        for (let chackedTable of thisBooking.dom.tables){
 
           //if it is booked remove class temporary booked
-          table.classList.remove(classNames.booking.newlyBooked);
-          //and clear table array
-          thisBooking.arrayTableId = [];
-          console.log('array after remove', thisBooking.arrayTableId);
+          chackedTable.classList.remove(classNames.booking.newlyBooked);
         }
-
-        //check if table is not booked from server
-        else if(!table.classList.contains(classNames.booking.tableBooked || classNames.booking.newlyBooked)){
-
+        if (!table.classList.contains(classNames.booking.tableBooked || classNames.booking.newlyBooked)){
           //toggle teble for order
-          table.classList.toggle(classNames.booking.newlyBooked);
+
+          table.classList.add(classNames.booking.newlyBooked);
 
           //read chosen table number and parse its value to integer
-          thisBooking.tableId = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
-          console.log('table id', thisBooking.tableId);
-
-          //add chosen table number to array
-          thisBooking.arrayTableId.push(thisBooking.tableId);
-          console.log('table array', thisBooking.arrayTableId);
+          thisBooking.selectedTable = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
+          console.log('table id', thisBooking.selectedTable);
         }
-
-        //if table is booked on server show the message
-        else{
-          thisBooking.arrayTableId = [];
-          console.log('table is already booked, chose another one', thisBooking.arrayTableId);
+        else {
+          console.log('table is already booked, chose another one');
         }
       });
     }
@@ -176,27 +164,19 @@ export class Booking {
       event.preventDefault();
 
       //prepare object with table reservation
-      if(thisBooking.arrayTableId.length == 1){
-        thisBooking.reservation = {
-          id: '',
-          date: thisBooking.datePicker.value,
-          hour: thisBooking.hourPicker.value,
-          table: thisBooking.arrayTableId[0],
-          repeat: 'false',
-          duration: '',
-          ppl: 3,
-          starters: [],
-        };
-        console.log('click, reservation', thisBooking.reservation);
-      }
-      if(thisBooking.arrayTableId.length < 1){
-        console.log('Chose which table you want to book');
-      }
-      if(thisBooking.arrayTableId.length > 1){
-        console.log('You can chose only one table at once');
-      }
+      thisBooking.reservation = {
+        id: '',
+        date: thisBooking.datePicker.value,
+        hour: thisBooking.hourPicker.value,
+        table: thisBooking.selectedTable,
+        repeat: 'false',
+        duration: thisBooking.hoursAmount.value,
+        ppl: thisBooking.peopleAmount.value,
+        starters: [],
+      };
+      console.log('click, reservation', thisBooking.reservation);
 
-      thisBooking.makeBooked(thisBooking.datePicker.value, thisBooking.hourPicker.value, 0.5, thisBooking.arrayTableId[0]);
+      thisBooking.makeBooked(thisBooking.datePicker.value, thisBooking.hourPicker.value, thisBooking.hoursAmount.value, thisBooking.selectedTable);
 
       console.log('obiekt', thisBooking.booked);
       const options = {

@@ -58,6 +58,20 @@ const app = {
     }
   },
 
+  landingPage(){
+    const thisApp =this;
+    thisApp.cart = document.querySelector(select.containerOf.cart);
+    thisApp.nav = document.querySelector(select.containerOf.nav);
+
+    for (let page of thisApp.pages){
+      if (page.id == select.containerOf.landingpage){
+        console.log('page.id', page.id);
+        thisApp.cart.classList.toggle(classNames.cart.disabled);
+        thisApp.nav.classList.toggle(classNames.nav.disabled);
+      }
+    }
+  },
+
   initMenu: function () {
     const thisApp = this;
     //console.log('thisApp.data: ', thisApp.data); //=dataSource - thisApp pobiera dane z pliku data.js
@@ -97,7 +111,7 @@ const app = {
     //console.log('templates:', templates);
 
     thisApp.initPages();
-
+    thisApp.landingPage();
     thisApp.initData(); //wykonanie metody initData
     //thisApp.initMenu(); //wykonanie metody initMenu, z uwagi na kożystanie z Ajax powinno być skasowane
     thisApp.initCart();
