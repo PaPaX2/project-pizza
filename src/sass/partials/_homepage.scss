@@ -1,0 +1,40 @@
+.home {
+  background-color: white;
+  padding: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+
+  .landingmenu {
+    padding-bottom: 30px;
+
+    img{
+      max-height: 130px;
+      width: 100%;
+      object-fit: cover;
+
+
+
+    }
+    h2{
+      position: absolute;
+    }
+    .opening-hours{
+      border: black;
+      text-align: center;
+      background-color: $color-main;
+      padding: 30px;
+      margin-top: 15px;
+      color: white;
+      border-radius: 2%;
+      max-height: 130px;
+
+    }
+  }
+
+  .opinion {
+    padding: 40px;
+
+  }
+
+}
