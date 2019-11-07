@@ -1,40 +1,59 @@
 .home {
   background-color: white;
-  padding: 30px;
+  padding: 45px;
   margin-top: 30px;
   margin-bottom: 30px;
-
 
   .landingmenu {
     padding-bottom: 30px;
 
     img{
-      max-height: 130px;
+      max-height: 120px;
       width: 100%;
       object-fit: cover;
-
-
-
     }
-    h2{
-      position: absolute;
+
+    .boot-left{
+      padding-right: 2px;
     }
+
+    .boot-right{
+      padding-left: 2px;
+    }
+
+    .card-title{
+      color: white;
+      transform: translateY(20px);
+    }
+
+    .card-text{
+      color: white;
+      opacity: 0;
+      transform: translateY(50px)
+    }
+
+    .card:hover .card-text {
+      opacity: 1;
+      transform: translateY(0px);
+      transition: transform 1s;
+    }
+    .card:hover .card-title{
+      transform: translateY(10px);
+      transition: transform 1s;
+    }
+
     .opening-hours{
-      border: black;
       text-align: center;
       background-color: $color-main;
       padding: 30px;
-      margin-top: 15px;
-      color: white;
+      margin-top: 4px;
       border-radius: 2%;
-      max-height: 130px;
-
+      max-height: 120px;
+      color: white;
     }
   }
 
   .opinion {
     padding: 40px;
-
   }
-
 }

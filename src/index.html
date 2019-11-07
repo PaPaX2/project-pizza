@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Pizzeria</title>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
@@ -66,18 +66,32 @@
   <div id="pages">
     <section id="home" class="home container">
       <div id="landingmenu" class="landingmenu link">
-          <div class="row">
-            <div class="card col-6 justify-content-center align-items-center">
-              <a href="#order"><img src="images/landingpage/pizza-1.jpg" alt="image"></a>
-              <h2>ORDER ONLINE</h2>
+        <div class="row text-center">
+            <div class="col-6 boot-left">
+              <div class="card">
+                <a href="#order"><img class="card-img" src="images/landingpage/pizza-1.jpg" alt="image">
+                  <div class="card-img-overlay">
+                    <h4 class="card-title">ORDER ONLINE</h4>
+                    <p class="card-text">Delicious food delivered to your door</p>
+                  </div>
+                </a>
+              </div>
             </div>
-            <div class="card col-6 justify-content-center align-items-center">
-              <a href="#booking"><img src="images/landingpage/pizza-2.jpg" alt="image"></a>
-              <h2>BOOK A TABLE</h2>
+            <div class="col-6 boot-right">
+              <div class="card">
+                <a href="#booking"><img class="card-img" src="images/landingpage/pizza-2.jpg" alt="image">
+                  <div class="card-img-overlay">
+                    <h4 class="card-title">BOOK A TABLE</h4>
+                    <p class="card-text">For your pleasure</p>
+                  </div>
+                </a>
+              </div>
             </div>
-            <div class="col opening-hours">
-              <h2>OPENING HOURS:</h2>
-              <h7>TUE-SUN, 12PM - 12AM</h7>
+            <div class="col">
+              <div class="card opening-hours">
+                <h4>OPENING HOURS:</h4>
+                <h6>TUE-SUN, 12PM - 12AM</h6>
+              </div>
             </div>
           </div>
       </div>
@@ -302,6 +316,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
    <script src="vendor/range-slider.min.js" type="module"></script>
-  <script src="js/app.js" type="module"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <script src="js/app.js" type="module"></script>
 </body>
 </html>
