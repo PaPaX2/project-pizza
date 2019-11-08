@@ -21,8 +21,6 @@
       object-fit: cover;
     }
 
-
-
     .card-title{
       color: white;
       transform: translateY(20px);
@@ -31,7 +29,7 @@
     .card-text{
       color: white;
       opacity: 0;
-      transform: translateY(50px)
+      transform: translateY(50px);
     }
 
     .card:hover .card-text {
@@ -39,12 +37,13 @@
       transform: translateY(0px);
       transition: transform 1s;
     }
-    .card:hover .card-title{
+
+    .card:hover .card-title {
       transform: translateY(10px);
       transition: transform 1s;
     }
 
-    .opening-hours{
+    .opening-hours {
       text-align: center;
       background-color: $color-main;
       padding: 30px;
@@ -65,24 +64,86 @@
       border-radius: 100%;
       background-color: black;
     }
+
     .carousel-indicators {
-      bottom:-65px;
+      bottom: -65px;
     }
 
     .carousel-inner {
-      margin-bottom:80px;
-   }
+      margin-bottom: 80px;
+    }
 
     img {
       height: 200px;
+      object-fit: cover;
     }
 
-    .carousel-item{
+    .carousel-item {
       min-height: 200px;
     }
 
     .card{
       border: none;
     }
+  }
+
+  .gallery {
+    .row{
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    .col-4 {
+      padding: 4px;
+    }
+
+    .card {
+      border: none;
+    }
+
+    img {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-img-overlay{
+      opacity: 0;
+      display: flex;
+      justify-content: center;
+
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      list-style-type: none;
+      font-size: 25px;
+    }
+
+    i {
+      padding: 0 15px;
+      color: white;
+      font-size: 35px;
+    }
+
+    .card-img-overlay:hover {
+      background-color: black;
+      opacity: 0.7;
+    }
+
+    i:hover{
+      color: $color-main;
+    }
+  }
+
+  .instagram p {
+    padding: 20px 4px;
+    color: $color-main;
+    text-decoration: underline;
   }
 }
