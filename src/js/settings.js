@@ -67,6 +67,7 @@ export const select = {
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
     submitBTN: '.booking-form .btn-secondary',
+    markedTables: '.floor-plan .temporary',
   },
   nav: {
     links: '.link a',

@@ -61,11 +61,10 @@ const app = {
   activatePage(pageId){
     const thisApp =this;
 
-
     //Add class 'active' to matching pages, rmove from non matching
     for (let page of thisApp.pages){
       page.classList.toggle(classNames.pages.active, page.id == pageId);
-      console.log('page.id', page.id);
+      //console.log('page.id', page.id);
     }
 
     //Add class 'active' to matching links, rmove from non matching
