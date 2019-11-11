@@ -122,7 +122,6 @@ export class Booking {
   tableChoice(){
     const thisBooking = this;
 
-
     //Start loop for every table
     for (let table of thisBooking.dom.tables){
 
@@ -136,7 +135,7 @@ export class Booking {
           table.classList.toggle(classNames.booking.newlyBooked);
         }
         else {
-          console.log('table is already booked, chose another one');
+          //console.log('table is already booked, chose another one');
         }
       });
     }
@@ -166,8 +165,9 @@ export class Booking {
         thisBooking.selectedTables.push(table);
       }
 
-      console.log('table id', thisBooking.selectedTables);
+      //console.log('table id', thisBooking.selectedTables);
 
+      //prepare object for sending to API
       for (let reservedTable of thisBooking.selectedTables) {
         let reservation = {
           id: '',
@@ -186,9 +186,10 @@ export class Booking {
         thisBooking.updateDOM();
       }
 
-      //prepare object for sending to API
-      console.log('Reservation for API', thisBooking.reservation);
-      console.log('Reservation until refresh webpage', thisBooking.booked);
+      //console.log('Reservation for API', thisBooking.reservation);
+      //console.log('Reservation until refresh webpage', thisBooking.booked);
+
+      //Send API request to server
       for (let body of thisBooking.reservation){
 
         const options = {
@@ -206,7 +207,7 @@ export class Booking {
             return responce.json();
           })
           .then(function(parsedResponce){
-            console.log('parsedResponce', parsedResponce);
+            //console.log('parsedResponce', parsedResponce);
           });
       }
     });
