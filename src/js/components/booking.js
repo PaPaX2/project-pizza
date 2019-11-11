@@ -207,7 +207,7 @@ export class Booking {
             return responce.json();
           })
           .then(function(parsedResponce){
-            //console.log('parsedResponce', parsedResponce);
+            console.log('parsedResponce', parsedResponce);
           });
       }
     });
