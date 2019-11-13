@@ -11,18 +11,19 @@ const app = {
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
-    const idFromHash = window.location.hash.replace('#/', '');
+    let pagesMatchingHash = [];
+    if (window.location.hash.length > 2) {
 
-    let pageMatchingHash = thisApp.pages[0].id;
+      const idFromHash = window.location.hash.replace('#/', '');
 
-    for (let page of thisApp.pages){
-      if(page.id == idFromHash){
-        pageMatchingHash = page.id;
-        break;
-      }
+      pagesMatchingHash = [...thisApp.pages].filter(function(page) {
+        return page.id == idFromHash;
+      });
+      thisApp.activatePage(pagesMatchingHash.length ? pagesMatchingHash[0].id : thisApp.pages[0].id);
     }
-
-    thisApp.activatePage(pageMatchingHash);
+    else {
+      thisApp.activatePage(thisApp.pages[0].id);
+    }
 
 
 
